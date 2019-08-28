@@ -58,6 +58,7 @@
     (newline)))
 
 (define (main)
+  (newline)
   (for-each handle-file (cdr (command-line))))
 
 (main)
