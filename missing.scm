@@ -10,20 +10,9 @@
   (let loop ((xs xs)) (unless (null? xs) (display (car xs)) (loop (cdr xs))))
   (newline))
 
-(define (writeln x)
-  (write x)
-  (newline))
-
 (define (assoc-get get key alist)
   (let ((pair (assoc key alist)))
     (if pair (get pair) #f)))
-
-(define (lenient-assoc key list_)
-  (cond ((null? list_) #f)
-        ((and (pair? (car list_))
-              (equal? key (caar list_)))
-         (car list_))
-        (else (lenient-assoc key (cdr list_)))))
 
 (define (sxml-for-each proc elem)
   (let walk ((elem elem))
