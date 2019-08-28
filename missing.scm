@@ -7,7 +7,7 @@
         (chibi html-parser))
 
 (define (disp . xs)
-  (let loop ((xs xs)) (unless (null? xs) (display (car xs)) (loop (cdr xs))))
+  (for-each display xs)
   (newline))
 
 (define (assoc-get get key alist)
