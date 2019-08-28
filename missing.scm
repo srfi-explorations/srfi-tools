@@ -1,14 +1,22 @@
 #! /usr/bin/env chibi-scheme
 
-(import (scheme small)
+(import (scheme base)
+        (scheme char)
+        (scheme cxr)
+        (scheme file)
+        (scheme process-context)
+        (scheme write)
         (srfi 69)
-        (srfi 95)
-        (srfi 130)
+        (srfi 132)
         (chibi html-parser))
 
 (define (disp . xs)
   (for-each display xs)
   (newline))
+
+(define (string-first-char? ch string)
+  (and (not (= 0 (string-length string)))
+       (char=? ch (string-ref string 0))))
 
 (define (assoc-get get key alist)
   (let ((pair (assoc key alist)))
@@ -39,12 +47,15 @@
                (name (assoc-get cadr 'name (sxml-attributes elem))))
            (when name
              (hash-table-set! names name #t))
-           (when (and href (string-prefix? "#" href))
-             (hash-table-set! hrefs (substring href 1) #t)))))
+           (when (and href (string-first-char? #\# href))
+             (hash-table-set!
+              hrefs (substring href 1 (string-length href)) #t)))))
      (call-with-input-file html-file html->sxml))
     (let loop ((hrefs (hash-table-keys hrefs)) (missing-names '()))
       (if (null? hrefs)
-          (sort missing-names string<? string-downcase)
+          (list-sort (lambda (a b) (string<? (string-downcase a)
+                                             (string-downcase b)))
+                     missing-names)
           (loop (cdr hrefs)
                 (if (hash-table-exists? names (car hrefs))
                     missing-names
