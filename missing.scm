@@ -51,7 +51,7 @@
                     (cons (car hrefs) missing-names)))))))
 
 (define (handle-file html-file)
-  (disp "Missing <a name=\"...\"> attribytes in " html-file ":")
+  (disp "Missing <a name=\"...\"> attributes in " html-file ":")
   (let ((names (missing-a-names html-file)))
     (for-each (lambda (name) (disp "  " name))
               (if (null? names) '("(none)") names))
