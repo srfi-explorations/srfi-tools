@@ -1,1 +1,6 @@
+*.c
 *.html
+*.meta
+*.o
+*.so
+/missing
