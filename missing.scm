@@ -42,14 +42,14 @@
         (hrefs (make-hash-table)))
     (sxml-for-each
      (lambda (elem)
-       (when (equal? 'a (car elem))
-         (let ((href (assoc-get cadr 'href (sxml-attributes elem)))
-               (name (assoc-get cadr 'name (sxml-attributes elem))))
-           (when name
-             (hash-table-set! names name #t))
-           (when (and href (string-first-char? #\# href))
-             (hash-table-set!
-              hrefs (substring href 1 (string-length href)) #t)))))
+       (let ((attrs (sxml-attributes elem)))
+         (when (equal? 'a (car elem))
+           (let ((name (assoc-get cadr 'name attrs)))
+             (when name (hash-table-set! names name #t)))
+           (let ((href (assoc-get cadr 'href attrs)))
+             (when (and href (string-first-char? #\# href))
+               (let ((anchor (substring href 1 (string-length href))))
+                 (hash-table-set! hrefs anchor #t)))))))
      (call-with-input-file html-file html->sxml))
     (let loop ((hrefs (hash-table-keys hrefs)) (missing-names '()))
       (if (null? hrefs)
