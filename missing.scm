@@ -6,11 +6,16 @@
         (scheme write)
         (chibi html-parser))
 
-(cond-expand ((or chibi gauche cyclone sagittarius)
+(cond-expand ((or chibi cyclone gauche sagittarius)
               (import (srfi 69) (srfi 132)))
+             (chicken
+              (import (srfi 69) (chicken sort)))
              (kawa
-              (import (srfi 69) (srfi 95))
-              (define (list-sort less? list) (sort list less?))))
+              (import (srfi 69) (srfi 95))))
+
+(cond-expand ((or chicken kawa)
+              (define (list-sort less? list) (sort list less?)))
+             (else))
 
 (define (disp . xs)
   (for-each display xs)
