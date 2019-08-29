@@ -1,0 +1,5 @@
+#!/bin/sh
+# You need the r7rs and srfi-69 eggs: `chicken-install r7rs srfi-69`.
+set -eu
+dir="$(dirname "$0")"
+exec csc -R r7rs -I chibi -prologue "chibi/html-parser.sld" "$dir/missing.scm" "$@"
