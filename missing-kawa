@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+dir="$(dirname "$0")"
+exec kawa --r7rs -Dkawa.import.path="$dir/*.sld" "$dir/missing.scm" "$@"

@@ -1,14 +1,16 @@
-#! /usr/bin/env chibi-scheme
-
 (import (scheme base)
         (scheme char)
         (scheme cxr)
         (scheme file)
         (scheme process-context)
         (scheme write)
-        (srfi 69)
-        (srfi 132)
         (chibi html-parser))
+
+(cond-expand ((or chibi gauche cyclone sagittarius)
+              (import (srfi 69) (srfi 132)))
+             (kawa
+              (import (srfi 69) (srfi 95))
+              (define (list-sort less? list) (sort list less?))))
 
 (define (disp . xs)
   (for-each display xs)
@@ -70,8 +72,9 @@
               (if (null? names) '("(none)") names))
     (newline)))
 
-(define (main)
+(define (main args)
   (newline)
-  (for-each handle-file (cdr (command-line))))
+  (for-each handle-file (cdr args)))
 
-(main)
+(cond-expand (sagittarius)
+             (else (main (command-line))))

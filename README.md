@@ -1,5 +1,8 @@
 # Find missing links in SRFI HTML
 
-Requirements: Chibi-Scheme
+Pick a Scheme implementation:
 
-Usage: `./missing.scm srfi-1.html srfi-166.html`
+    ./missing-chibi       srfi-*.html
+    ./missing-gauche      srfi-*.html
+    ./missing-kawa        srfi-*.html
+    ./missing-sagittarius srfi-*.html
