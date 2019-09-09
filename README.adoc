@@ -1,0 +1,20 @@
+= Convert AsciiDoc into SRFI-ready HTML
+
+Usage:
+
+    cp srfi-template.adoc your-srfi.adoc
+    # edit your-srfi.adoc
+    ./srfi-from-asciidoc-gauche your-srfi.adoc
+    # email a link to your-srfi.html to srfi-editors at srfi.schemers.org
+
+Requirements:
+
+* Gauche (can be easily ported to other R7RS Schemes)
+* AsciiDoctor (`asciidoctor` command)
+* HTML Tidy (`tidy` command)
+
+How to install them:
+
+* Debian Linux: `apt install gauche asciidoctor tidy`
+* FreeBSD: `pkg install gauche rubygem-asciidoctor tidy-html5`
+* MacOS: `brew install gauche asciidoctor tidy-html5`

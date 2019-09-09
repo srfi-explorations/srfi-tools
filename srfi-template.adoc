@@ -1,0 +1,48 @@
+= SRFI nnn
+:toc: macro
+:toc-title:
+
+== Title
+
+*Up Goer Five*
+
+== Author
+
+US Space Team
+
+== Status
+
+Draft
+
+== Abstract
+
+This SRFI provides the only flying space car that's taken anyone to
+another world.
+
+== Rationale
+
+Why go to the moon? Why not Neptune? Why go using a rocket instead of
+a giant spring?
+
+== Specification
+
+Detailed blueprint here.
+
+== Implementation
+
+Link to code. Explanation of implementations techniques,
+compatibility, testing and limitations of scope and performance.
+
+In the rare cases where the code is trivial, it can be inlined like
+this:
+
+[source,scheme]
+----
+(define (hello)
+  (display "Hello world")
+  (newline))
+----
+
+== Acknowledgements
+
+I did it. I did it all, by myself.
