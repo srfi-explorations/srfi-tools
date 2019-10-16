@@ -24,8 +24,10 @@
   (newline))
 
 (define (tag-body elem)
-  (if (and (pair? (cadr elem)) (eqv? '@ (caadr elem)))
-      (cddr elem) (cdr elem)))
+  (cond ((not (pair? (cdr elem))) '())
+        ((and (pair? (cadr elem)) (eqv? '@ (caadr elem)))
+         (cddr elem))
+        (else (cdr elem))))
 
 (define (heading-level tag)
   (case tag
