@@ -97,7 +97,8 @@
                                     (flatten-subtags
                                      (remove-subtag-ids body "footer")
                                      'div)
-                                    'div)))))))
+                                    'div
+                                    'colgroup)))))))
 
 (define (run-pipe input command . args)
   (cond-expand
