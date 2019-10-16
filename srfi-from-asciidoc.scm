@@ -118,7 +118,7 @@
     (newline)
     (let ((asciidoc (call-with-input-file asciidoc-file port->string)))
       (let ((html (run-pipe asciidoc
-                            "asciidoctor" "-b" "html5" "-o" "-" "-")))
+                            "asciidoctor" "-b" "xhtml5" "-o" "-" "-")))
         (let ((sxml (call-with-input-string html html->sxml)))
           (set! sxml (sxml-cleanup (find-html-tag sxml)))
           (set! html (call-with-output-string
