@@ -20,6 +20,9 @@
 (define (add-to-set elem set) (hash-table-set! set elem #t) set)
 (define (symbol<? a b) (string<? (symbol->string a) (symbol->string b)))
 
+(define (hash-table-increment! table key)
+  (hash-table-update!/default table key (lambda (x) (+ x 1)) 0))
+
 (define (symbol-prefix? prefix sym)
   (string-prefix? prefix (symbol->string sym)))
 
@@ -40,20 +43,20 @@
           (if (null? elems) acc
               (do-list (cdr elems) (do-elem (car elems) acc)))))))
 
-(define (html-file-tag-names html-file)
+(define (count-html-file-tags! html-file counts)
   (let* ((html (call-with-input-file html-file port->string))
-         (sxml (call-with-input-string html html->sxml))
-         (tags (tag-names-fold sxml add-to-set (make-set))))
-    (filter (lambda (tag) (not (symbol-prefix? "*" tag)))
-            (sort (set-elems tags) symbol<?))))
+         (sxml (call-with-input-string html html->sxml)))
+    (tag-names-fold sxml
+                    (lambda (tag counts)
+                      (unless (symbol-prefix? "*" tag)
+                        (hash-table-increment! counts tag))
+                      counts)
+                    counts)))
 
 (define (main html-files)
   (let ((tag-counts (make-hash-table)))
     (for-each (lambda (html-file)
-                (for-each (lambda (tag-name)
-                            (hash-table-update!/default
-                             tag-counts tag-name (lambda (x) (+ x 1)) 0))
-                          (html-file-tag-names html-file)))
+                (count-html-file-tags! html-file tag-counts))
               html-files)
     (for-each (lambda (tag-name)
                 (let ((count (hash-table-ref tag-counts tag-name)))
