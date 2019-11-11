@@ -110,7 +110,7 @@
   (and (<= 2 (car h) 4)
        (not (member (string-downcase (cdr h))
                     '("title" "author" "status" "abstract"
-                      "table of contents")))))
+                      "table of contents" "copyright")))))
 
 (define (handle-file html-file)
   (let* ((html (call-with-input-file html-file port->string))
