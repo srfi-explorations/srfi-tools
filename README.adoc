@@ -1,4 +1,14 @@
-= SRFI tools
+= Prototype SRFI tools
+
+== This repository is obsolete
+
+NOTE: These prototypes are obsolete. Please use the new tools in the
+**srfi-tools** directory of the official
+https://github.com/scheme-requests-for-implementation/srfi-common[**srfi-common**]
+repository. Those tools are much more polished and comprehensive. Most
+of the stuff from this repo has been incorporated. (If you need
+something that is missing, please talk to the SRFI Editor about adding
+it.)
 
 == Find missing links in SRFI HTML
 
